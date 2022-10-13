@@ -15,9 +15,16 @@ Como ejercicio adicional y completamente opcional, al terminar de resolver este 
 */
 
 function nFactorial(n) {
+  if (n>=0 && n<2) return 1;
+  return n*nFactorial(n-1);
 }
 
 function nFibonacci(n) {
+  //fibonacci(0)=0
+  //fibonacci(1)=1
+  //fibonacci(n)= fibonacci(n-1)+fibonacci(n-2)
+  if (n>=0 && n<2) return n; // n=0 return 0 && n=1 return 1
+  return nFibonacci(n-1)+nFibonacci(n-2);
 }
 
 /*
@@ -26,7 +33,8 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
   - dequeue: remueve un valor respetando el orden. Retorna undefined cuando la queue está vacía.
   - size: retorna el tamaño (cantidad de elementos) de la queue.
 
-Pueden utilizar class o función constructora.
+Pueden utilizar class o función constructora.\
+
 */
 
 function Queue() {
