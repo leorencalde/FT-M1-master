@@ -16,7 +16,24 @@ const {
 
 var countArray = function(array) {
     // Tu código aca:
-    
+    /*
+    1. necesitamos sumar los valores que están en nuestro array
+    2. Debemos devolver la suma.
+    3. recibimos un arreglo --> recorremos el arreglo
+    4. nos encontraremos con dos caminos:
+        - el primero --> que sea un numero -->sumamos
+        - el segundo --> que sea un arreglo -->recursión
+    */
+  let contador = 0;
+
+  for (let i = 0; i < array.length; i++) {
+    if (Array.isArray(array[i])) {
+      contador += countArray(array[i]);
+    } else {
+      contador += array[i];
+    }
+  }
+  return contador;
 }
 
 
@@ -39,7 +56,21 @@ var countArray = function(array) {
 
 var countProps = function(obj) {
     // Tu código aca:
-
+    /*
+  1. También precisamos una variable que se encargue de contar
+  2. recorremos el objeto con for in --> propiedades se suman a nuestro contador
+  3. preguntar si la propiedad es un objeto --> recursión
+  4. Debemos asegurarnos que no sea un arreglo
+  5. debemos devolver nuestro contador
+  */
+  let contador = 0;
+  for (const propiedad in obj) {
+    if (typeof obj[propiedad] === "object" && !Array.isArray(obj[propiedad])) {
+      contador += countProps(obj[propiedad]);
+    }
+    contador++;
+  }
+  return contador;
 }
 
 
@@ -53,7 +84,24 @@ var countProps = function(obj) {
 
 LinkedList.prototype.changeNotNumbers = function(){
     // Tu código aca:
+    /*
+  1. recorrer la lista
+  2. definimos nuestro iterador --> current
+  3. preguntar si el valor del nodo lo podemos convertir a numero, si no podemos --> cambiamos el valor por kiricocho
+  4.Necesitamos guardar la cantidad de cambios que hicimos
+  */
 
+  let cambios = 0;
+  let current = this.head;
+  while (current) {
+    if (isNaN(Number(current.value))) {
+      current.value = "Kiricocho";
+      cambios++;
+    }
+    current = current.next;
+  }
+
+  return cambios;
 }
 
 
@@ -67,7 +115,25 @@ LinkedList.prototype.changeNotNumbers = function(){
 
 var mergeQueues = function(queueOne, queueTwo) {
     // Tu código aca:
+    /*
+  1. Debemos asegurarnos de los métodos que nos entregan en DS
+  2. NO SON ARREGLOS
+  3. Debemos fijarnos en la longitud de las queues que nos pasan
+  4. objetivo --> retornar una nueva queue mergeada (unida)
+  5. Debemos sacar un elemento de las queues y las vamos uniendo a la nueva queue
+  */
+  const nuevaQueue = new Queue();
+  //   console.log(nuevaQueue);
+  while (queueOne.size() || queueTwo.size()) {
+    let sacarElementoUno = queueOne.dequeue();
+    let sacarElementoDos = queueTwo.dequeue();
 
+    sacarElementoUno && nuevaQueue.enqueue(sacarElementoUno);
+    if (sacarElementoDos) {
+      nuevaQueue.enqueue(sacarElementoDos);
+    }
+  }
+  return nuevaQueue;
 }
 
 
@@ -82,14 +148,34 @@ var mergeQueues = function(queueOne, queueTwo) {
 
 var closureMult = function(multiplier) {
     // Tu código aca:
-
+    /*
+    1. nuestra función closureMult recibe un número como parámetro
+    2. Objetivo --> multiplicar dos números
+    3. retornar otra función que también recibe un parámetro
+    4. retornamos el resultado de la multiplicación
+  */
+  return function (num) {
+    return multiplier * num;
+  };
 }
 
 // Implementar el método sum dentro del prototype de BinarySearchTree
 // que debe retornar la suma total de los valores dentro de cada nodo del arbol
 BinarySearchTree.prototype.sum = function() {
     // Tu código aca:
+    /*
+  1. debemos sumar los valores de cada nodo de nuestro árbol
+  2. No nos debemos olvidar que los árboles son recursivos
+  3. acumulando en alguna parte(variable) el resultado
+  4. debemos preguntarnos si hay izquierda y derecha
+  5. No olvidarse del caso base de los árboles --> nodos hoja
+  */
 
+  let acumuladora = 0;
+  if (this.left) acumuladora += this.left.sum();
+  if (this.right) acumuladora += this.right.sum();
+  acumuladora += this.value;
+  return acumuladora;
 }
 
 module.exports = {
