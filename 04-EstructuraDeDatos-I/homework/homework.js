@@ -38,8 +38,23 @@ Pueden utilizar class o función constructora.\
 */
 
 function Queue() {
-
+  this.queue = [];
 }
+
+Queue.prototype.enqueue = function (val) {
+  // this.queue.push(val);
+  this.queue.unshift(val);
+};
+Queue.prototype.dequeue = function () {
+  // return this.queue.shift();
+  this.queue.pop();
+};
+Queue.prototype.size = function () {
+  return this.queue.length;
+};
+Queue.prototype.show = function () {
+  console.log(this.queue);
+};
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
